@@ -1,0 +1,96 @@
+spring:
+  application:
+    name: website-banner-backend
+  profiles.active: development
+
+---
+spring:
+  config:
+    activate:
+      on-profile:
+        - development
+zshop.db:
+  url: jdbc:mysql://15.207.200.97:3306/zshop?sessionVariables=sql_mode=ALLOW_INVALID_DATES&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true&connectionCollation=utf8_general_ci&characterSetResults=utf8&characterEncoding=utf8&autoReconnect=true&useSSL=false
+  username: devuser
+  password: devuser@1234
+  driverClassName: com.mysql.jdbc.Driver
+
+
+banner-elk:
+  baseUrl: http://localhost:60001/website-banner-elk
+  bundleIngestUrl: /v1/ingest/bundles
+  bannerIngestUrl: /v1/ingest/banner
+  
+server:
+  port: 60001
+  servlet:
+    context-path: "/${spring.application.name}"
+ 
+---
+spring:
+  config:
+    activate:
+      on-profile:
+        - uat
+zshop.db:
+  url: jdbc:mysql://15.207.200.97:3306/zshop?sessionVariables=sql_mode=ALLOW_INVALID_DATES&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true&connectionCollation=utf8_general_ci&characterSetResults=utf8&characterEncoding=utf8&autoReconnect=true&useSSL=false
+  username: devuser
+  password: devuser@1234
+  driverClassName: com.mysql.jdbc.Driver
+  
+banner-elk:
+  #baseUrl: http://localhost:60002/website-banner-elk
+  baseUrl: http://localhost:50002/order-management-acc
+  bundleIngestUrl: /v1/ingest/bundles
+  bannerIngestUrl: /v1/ingest/banner 
+  
+  
+server:
+  port: 60001
+  servlet:
+    context-path: "/${spring.application.name}"
+---
+spring:
+  config:
+    activate:
+      on-profile:
+        - production
+  
+zshop.db:
+  url: jdbc:mysql://masterdb.prod.ezmall.com:3306/zshop?autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true&connectionCollation=utf8_general_ci&characterSetResults=utf8&characterEncoding=utf8
+  username: liveuser
+  password: liveuser@1234
+  driverClassName: com.mysql.jdbc.Driver
+          
+banner-elk:
+  baseUrl: http://newelk.kremlincosmetics.com/website-banner-elk
+  bundleIngestUrl: /v1/ingest/bundles
+  bannerIngestUrl: /v1/ingest/banner        
+        
+  
+server:
+  port: 60001
+  servlet:
+    context-path: "/${spring.application.name}"
+---
+spring:
+  config:
+    activate:
+      on-profile:
+        - docker
+        
+zshop.db:
+  url: jdbc:mysql://masterdb.prod.ezmall.com:3306/zshop?autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true&connectionCollation=utf8_general_ci&characterSetResults=utf8&characterEncoding=utf8
+  username: liveuser
+  password: liveuser@1234
+  driverClassName: com.mysql.jdbc.Driver
+          
+banner-elk:
+  baseUrl: http://newelk.kremlincosmetics.com/website-banner-elk
+  bundleIngestUrl: /v1/ingest/bundles
+  bannerIngestUrl: /v1/ingest/banner
+  
+server:
+  port: 60001
+  servlet:
+    context-path: "/${spring.application.name}"

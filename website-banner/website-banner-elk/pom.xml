@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.7.9</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.zee.website.banner.elk</groupId>
+	<artifactId>website-banner-elk</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>website-banner-elk</name>
+	<description>Website banner elastic module</description>
+
+	<properties>
+		<java.version>11</java.version>
+		<org.projectlombok.version>1.18.4</org.projectlombok.version>
+		<org.mapstruct.version>1.2.0.Final</org.mapstruct.version>
+	</properties>
+
+
+	<packaging>pom</packaging>
+	<modules>
+		<module>website-banner-elk-api</module>
+		<module>website-banner-elk-service</module>
+		<module>website-banner-elk-deploy</module>
+	</modules>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct-processor</artifactId>
+							<version>${org.mapstruct.version}</version>
+						</path>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${org.projectlombok.version}</version>
+						</path>
+					</annotationProcessorPaths>
+					<compilerArgs>
+						-Amapstruct.defaultComponentModel=spring
+					</compilerArgs>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<distributionManagement>
+		<snapshotRepository>
+			<id>nexus-snapshots</id>
+			<url>http://35.154.211.92:8081/repository/zshop-snapshot/</url>
+		</snapshotRepository>
+		<repository>
+			<id>nexus-release</id>
+			<url>http://35.154.211.92:8081/repository/zshop-release/</url>
+		</repository>
+	</distributionManagement>
+	<repositories>
+		<repository>
+			<id>nexus-snapshots</id>
+			<url>http://35.154.211.92:8081/repository/zshop-snapshot/</url>
+		</repository>
+		<repository>
+			<id>nexus-release</id>
+			<url>http://35.154.211.92:8081/repository/zshop-release/</url>
+		</repository>
+
+	</repositories>
+
+</project>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.zee.website.banner.elk</groupId>
+		<artifactId>website-banner-elk</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>website-banner-elk-service</artifactId>
+	<name>website-banner-elk-service</name>
+	<description>Website banner elastic module services and business logic</description>
+
+	<properties>
+		<platform.version>0.0.14-SNAPSHOT</platform.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>com.zee.website.banner.elk.api</groupId>
+			<artifactId>website-banner-elk-api</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+	</dependencies>
+
+</project>

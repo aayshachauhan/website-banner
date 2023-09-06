@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: website-banner-backend
+  profiles.active: development
+
+---
+spring:
+  config:
+    activate:
+      on-profile:
+        - development
+server:
+  port: 60002
+---
+spring:
+  config:
+    activate:
+      on-profile:
+        - uat
+server:
+  port: 60002
+---
+spring:
+  config:
+    activate:
+      on-profile:
+        - production
+server:
+  port: 60002
+---
+spring:
+  config:
+    activate:
+      on-profile:
+        - docker
+server:
+  port: 60002
