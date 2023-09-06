@@ -1,5 +1,5 @@
 # website-banner
-Through this APIs we can add and update website's main banner and bundle
+Add and update website's main banner and bundle using Java 8 features
 =====================================================================================
 =====================================================================================
 =====================================================================================
