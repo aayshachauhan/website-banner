@@ -1,6 +1,8 @@
 # website-banner
 Through this APIs we can add and update website's main banner and bundle
-
+=====================================================================================
+=====================================================================================
+=====================================================================================
 Write banner Request (post)
 
 http://localhost:60001/v1/addBanners
@@ -709,6 +711,922 @@ Invalid Request
 Response
 
 {
+    "status": "OK",
+    "code": 2000,
+    "message": "Request Successful",
+    "data": {}
+}
+
+
+=====================================================================================
+=====================================================================================
+=====================================================================================
+
+
+
+ Post -> http://localhost:60001/v1/addBundle
+
+ Sample Request ->
+
+    {
+    "websiteCode": "DUMMY",  
+    "bundleType": "DUMMY_BNDL", 
+    "bundleTitle":"Dummy bundle",  
+    "bundleSubtitle":"Subtitle",
+    "bundleImageCdnUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "bundleLandingUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "videoUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.mp4",
+    "bundleProduct":"1",
+    "bundleSequence":"3",
+    "bundleLocation":"Web",
+    "isActive": "Y",
+    "startDate":"2023-03-21 08:34:13",
+    "endDate":"2023-03-30 08:34:13"
+}
+
+
+Response ->
+
+        {
+    "status": "OK",
+    "code": 2000,
+    "message": "Request Successful",
+    "data": {
+        "id": 100
+    }
+}
+
+
+   Date Validations ->
+
+  1. if start date given and end date is not given -> Valid Condition.
+
+-> sample Request
+ {
+    "websiteCode": "DUMMY",  
+    "bundleType": "DUMMY_BNDL", 
+    "bundleTitle":"Dummy bundle",  
+    "bundleSubtitle":"Subtitle",
+    "bundleImageCdnUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "bundleLandingUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "videoUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.mp4",
+    "bundleProduct":"1",
+    "bundleSequence":"3",
+    "bundleLocation":"Web",
+    "isActive": "Y",
+    "startDate":"2023-03-21 10:28:58",
+    "endDate":""
+}
+
+-> Response
+  {
+    "status": "OK",
+    "code": 2000,
+    "message": "Request Successful",
+    "data": {
+        "id": 103
+    }
+}
+
+  2. If start date is not given and end date is give -> Invalid Condition
+
+    -> Request
+
+    {
+    "websiteCode": "DUMMY",  
+    "bundleType": "DUMMY_BNDL", 
+    "bundleTitle":"Dummy bundle",  
+    "bundleSubtitle":"Subtitle",
+    "bundleImageCdnUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "bundleLandingUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "videoUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.mp4",
+    "bundleProduct":"1",
+    "bundleSequence":"3",
+    "bundleLocation":"Web",
+    "isActive": "Y",
+    "startDate":"",
+    "endDate":"2023-03-21 10:28:58"
+}
+
+    -> Response
+
+    {
+    "status": "BAD_REQUEST",
+    "code": 4033,
+    "message": "Bundle validations failed. Please check codes and dates",
+    "data": null
+}
+
+  3. both are provided (End date should be after start date) -> Valid Condition
+
+  -> Request
+
+  {
+    "websiteCode": "DUMMY",  
+    "bundleType": "DUMMY_BNDL", 
+    "bundleTitle":"Dummy bundle",  
+    "bundleSubtitle":"Subtitle",
+    "bundleImageCdnUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "bundleLandingUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "videoUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.mp4",
+    "bundleProduct":"1",
+    "bundleSequence":"3",
+    "bundleLocation":"Web",
+    "isActive": "Y",
+    "startDate":"2023-03-21 10:28:58",
+    "endDate":"2023-03-30 10:28:58"
+}
+
+    -> Response
+
+    {
+    "status": "OK",
+    "code": 2000,
+    "message": "Request Successful",
+    "data": {
+        "id": 104
+    }
+}
+
+
+
+  4. end  date can't be before than start date -> Invalid Condition
+
+  -> Request
+
+  {
+    "websiteCode": "DUMMY",  
+    "bundleType": "DUMMY_BNDL", 
+    "bundleTitle":"Dummy bundle",  
+    "bundleSubtitle":"Subtitle",
+    "bundleImageCdnUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "bundleLandingUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "videoUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.mp4",
+    "bundleProduct":"1",
+    "bundleSequence":"3",
+    "bundleLocation":"Web",
+    "isActive": "Y",
+    "startDate":"2023-03-21 10:28:58",
+    "endDate":"2023-03-20 10:28:58"
+}
+
+    -> Response
+
+    {
+    "status": "BAD_REQUEST",
+    "code": 4033,
+    "message": "Bundle validations failed. Please check codes and dates",
+    "data": null
+}
+ 
+  5. Both date are null -> Valid Condition
+
+  ->Request
+
+  {
+    "websiteCode": "DUMMY",  
+    "bundleType": "DUMMY_BNDL", 
+    "bundleTitle":"Dummy bundle",  
+    "bundleSubtitle":"Subtitle",
+    "bundleImageCdnUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "bundleLandingUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "videoUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.mp4",
+    "bundleProduct":"1",
+    "bundleSequence":"3",
+    "bundleLocation":"Web",
+    "isActive": "Y",
+    "startDate":"",
+    "endDate":""
+}
+
+    ->Response
+
+    {
+    "status": "OK",
+    "code": 2000,
+    "message": "Request Successful",
+    "data": {
+        "id": 105
+    }
+}
+
+----------------------------------------------------
+
+ Data Validation in request-> 
+
+ 1. websiteCode is validate with website_master (website_code). 
+
+    -> Valid Request
+
+    {
+    "websiteCode": "DUMMY",  
+    "bundleType": "DUMMY_BNDL", 
+    "bundleTitle":"Dummy bundle",  
+    "bundleSubtitle":"Subtitle",
+    "bundleImageCdnUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "bundleLandingUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "videoUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.mp4",
+    "bundleProduct":"1",
+    "bundleSequence":"3",
+    "bundleLocation":"Web",
+    "isActive": "Y",
+    "startDate":"",
+    "endDate":""
+}
+
+    -> Response
+
+    {
+    "status": "OK",
+    "code": 2000,
+    "message": "Request Successful",
+    "data": {
+        "id": 105
+    }
+}
+
+    -> Invalid Request
+
+    {
+    "websiteCode": "DUMMY1",  
+    "bundleType": "DUMMY_BNDL", 
+    "bundleTitle":"Dummy bundle",  
+    "bundleSubtitle":"Subtitle",
+    "bundleImageCdnUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "bundleLandingUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "videoUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.mp4",
+    "bundleProduct":"1",
+    "bundleSequence":"3",
+    "bundleLocation":"Web",
+    "isActive": "Y",
+    "startDate":"",
+    "endDate":""
+}
+
+    -> Response
+
+    {
+    "status": "BAD_REQUEST",
+    "code": 4033,
+    "message": "Bundle validations failed. Please check codes and dates",
+    "data": null
+}
+
+ 2. bundleType is validate with banner_location_master(banner_bundle_type).
+
+    -> Valid Request
+    {
+    "websiteCode": "DUMMY",  
+    "bundleType": "DUMMY_BNDL", 
+    "bundleTitle":"Dummy bundle",  
+    "bundleSubtitle":"Subtitle",
+    "bundleImageCdnUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "bundleLandingUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "videoUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.mp4",
+    "bundleProduct":"1",
+    "bundleSequence":"3",
+    "bundleLocation":"Web",
+    "isActive": "Y",
+    "startDate":"",
+    "endDate":""
+}
+
+    -> Response
+
+       {
+    "status": "OK",
+    "code": 2000,
+    "message": "Request Successful",
+    "data": {
+        "id": 105
+    }
+}
+
+    -> Invalid request
+
+    {
+    "websiteCode": "DUMMY",  
+    "bundleType": "DUMMY_BNDL1", 
+    "bundleTitle":"Dummy bundle",  
+    "bundleSubtitle":"Subtitle",
+    "bundleImageCdnUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "bundleLandingUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "videoUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.mp4",
+    "bundleProduct":"1",
+    "bundleSequence":"3",
+    "bundleLocation":"Web",
+    "isActive": "Y",
+    "startDate":"",
+    "endDate":""
+}
+
+    ->Response
+
+
+    {
+    "status": "BAD_REQUEST",
+    "code": 4033,
+    "message": "Bundle validations failed. Please check codes and dates",
+    "data": null
+}
+
+
+
+ 3. bundleLocation is validate with banner_location_master(bundle_banner_location_type).
+
+    -> Valid Request
+    {
+    "websiteCode": "DUMMY",  
+    "bundleType": "DUMMY_BNDL", 
+    "bundleTitle":"Dummy bundle",  
+    "bundleSubtitle":"Subtitle",
+    "bundleImageCdnUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "bundleLandingUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "videoUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.mp4",
+    "bundleProduct":"1",
+    "bundleSequence":"3",
+    "bundleLocation":"Web",
+    "isActive": "Y",
+    "startDate":"",
+    "endDate":""
+}
+
+    ->Response
+{
+    "status": "OK",
+    "code": 2000,
+    "message": "Request Successful",
+    "data": {
+        "id": 105
+    }
+}
+
+    ->Invalid Request
+    {
+    "websiteCode": "DUMMY",  
+    "bundleType": "DUMMY_BNDL", 
+    "bundleTitle":"Dummy bundle",  
+    "bundleSubtitle":"Subtitle",
+    "bundleImageCdnUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "bundleLandingUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "videoUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.mp4",
+    "bundleProduct":"1",
+    "bundleSequence":"3",
+    "bundleLocation":"Web1",
+    "isActive": "Y",
+    "startDate":"",
+    "endDate":""
+}
+
+    ->Response
+
+        {
+    "status": "BAD_REQUEST",
+    "code": 4033,
+    "message": "Bundle validations failed. Please check codes and dates",
+    "data": null
+}
+
+
+
+ 4. Fields are required in request except the websiteCode,bundleType,bundleSequence, bundleLocation.
+
+ -> Valid Request
+
+ {
+    "websiteCode": "DUMMY",  
+    "bundleType": "DUMMY_BNDL", 
+    "bundleTitle":"Dummy bundle",  
+    "bundleSubtitle":"Subtitle",
+    "bundleImageCdnUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "bundleLandingUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "videoUrl":"",
+    "bundleProduct":"",
+    "bundleSequence":"3",
+    "bundleLocation":"Web",
+    "isActive": "",
+    "startDate":"",
+    "endDate":""
+}
+
+    ->Response
+    {
+    "status": "OK",
+    "code": 2000,
+    "message": "Request Successful",
+    "data": {
+        "id": 106
+    }
+}
+
+
+
+    5. Validate between bundleImageCdnUrl, bundleLandingUrl, bundleProduct
+
+        -> If user should pass - bundleProduct then bundleImageCdnUrl, bundleLandingUrl is not mandatory. -> Valid Request
+
+->Request
+{
+    "websiteCode": "DUMMY",  
+    "bundleType": "DUMMY_BNDL", 
+    "bundleTitle":"Dummy bundle",  
+    "bundleSubtitle":"Subtitle",
+    "bundleImageCdnUrl":"",
+    "bundleLandingUrl":"",
+    "videoUrl":"",
+    "bundleProduct":"1",
+    "bundleSequence":"3",
+    "bundleLocation":"Web",
+    "isActive": "",
+    "startDate":"",
+    "endDate":""
+}
+
+        ->Response
+    {
+    "status": "OK",
+    "code": 2000,
+    "message": "Request Successful",
+    "data": {
+        "id": 106
+    }
+}
+
+        -> If user should pass - bundleImageCdnUrl, bundleLandingUrl then bundleProduct is not mandatory. -> Valid Request
+
+        ->Request
+        {
+    "websiteCode": "DUMMY",  
+    "bundleType": "DUMMY_BNDL", 
+    "bundleTitle":"Dummy bundle",  
+    "bundleSubtitle":"Subtitle",
+    "bundleImageCdnUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "bundleLandingUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "videoUrl":"",
+    "bundleProduct":"",
+    "bundleSequence":"3",
+    "bundleLocation":"Web",
+    "isActive": "",
+    "startDate":"",
+    "endDate":""
+}
+
+    ->Response
+    {
+    "status": "OK",
+    "code": 2000,
+    "message": "Request Successful",
+    "data": {
+        "id": 106
+    }
+}
+
+        -> if user not provide bundleProduct and bundleImageCdnUrl or bundleLandingUrl -> Invalid Request
+
+            ->Request
+
+{
+    "websiteCode": "DUMMY",  
+    "bundleType": "DUMMY_BNDL", 
+    "bundleTitle":"Dummy bundle",  
+    "bundleSubtitle":"Subtitle",
+    "bundleImageCdnUrl":"",
+    "bundleLandingUrl":"",
+    "videoUrl":"",
+    "bundleProduct":"",
+    "bundleSequence":"3",
+    "bundleLocation":"Web",
+    "isActive": "",
+    "startDate":"",
+    "endDate":""
+}
+
+        ->Response
+
+        {
+    "status": "BAD_REQUEST",
+    "code": 4033,
+    "message": "Request is invalid - product or landingUrl required",
+    "data": null
+}
+
+
+ -> If user should pass - bundleImageCdnUrl, bundleLandingUrl and bundleProduct. -> Valid Request
+
+        ->Request
+        {
+    "websiteCode": "DUMMY",  
+    "bundleType": "DUMMY_BNDL", 
+    "bundleTitle":"Dummy bundle",  
+    "bundleSubtitle":"Subtitle",
+    "bundleImageCdnUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "bundleLandingUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "videoUrl":"",
+    "bundleProduct":"1",
+    "bundleSequence":"3",
+    "bundleLocation":"Web",
+    "isActive": "",
+    "startDate":"",
+    "endDate":""
+}
+
+    ->Response
+    {
+    "status": "OK",
+    "code": 2000,
+    "message": "Request Successful",
+    "data": {
+        "id": 106
+    }
+}
+
+---------------------------------------------------------------------------
+
+Add edit portion
+
+1. Check if id is given by the user.
+
+    ->Request
+
+    {
+    "id":"1",
+    "websiteCode": "Dummy",  
+    "bundleType": "DUMMY_BNDL", 
+    "bundleTitle":"Dummy bundle",  
+    "bundleSubtitle":"",
+    "bundleImageCdnUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "bundleLandingUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "videoUrl":"",
+    "bundleProduct":"1",
+    "bundleSequence":"3",
+    "bundleLocation":"Web",
+    "isActive": "",
+    "startDate":"",
+    "endDate":""
+}
+
+2. check If id is found in database or not 
+    -> if id is present then update fields given  by the user.
+
+    ->Valid Request
+
+    {
+    "id":"1",
+    "websiteCode": "Dummy",  
+    "bundleType": "DUMMY_BNDL", 
+    "bundleTitle":"Dummy bundle",  
+    "bundleSubtitle":"",
+    "bundleImageCdnUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "bundleLandingUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "videoUrl":"",
+    "bundleProduct":"1",
+    "bundleSequence":"3",
+    "bundleLocation":"Web",
+    "isActive": "",
+    "startDate":"",
+    "endDate":""
+}
+
+    -> Response
+
+    {
+    "status": "OK",
+    "code": 2000,
+    "message": "Request Successful",
+    "data": {
+        "id": 1
+    }
+}
+        
+
+        -> else throwing error Id not found.
+
+        ->Request
+        {
+    "id":"7",
+    "websiteCode": "Dummy",  
+    "bundleType": "DUMMY_BNDL", 
+    "bundleTitle":"Dummy bundle",  
+    "bundleSubtitle":"",
+    "bundleImageCdnUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "bundleLandingUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "videoUrl":"",
+    "bundleProduct":"1",
+    "bundleSequence":"3",
+    "bundleLocation":"Web",
+    "isActive": "",
+    "startDate":"",
+    "endDate":""
+}
+
+ ->Response
+
+ {
+    "status": "BAD_REQUEST",
+    "code": 4033,
+    "message": "Id not found",
+    "data": null
+}
+
+3. If fields are already have a data and the user request not mandatory to provide all details. they required only update fields and validation fields.
+
+
+
+
+===================================================================================================================
+
+Fetch data by id.
+
+Get -> http://localhost:60001/v1/findByBundleId
+
+Sample Request ->
+
+{
+ "ids" : [91,92],
+ "isSyncToElkRequired": true
+}
+
+Response ->
+
+{
+    "status": "OK",
+    "code": 2000,
+    "message": "Request Successful",
+    "data": {
+        "bundleDtos": [
+            {
+                "id": 91,
+                "websiteCode": "Ezmall",
+                "bundleType": "NEW_ARRIVALS",
+                "bundleTitle": "Title",
+                "bundleSubtitle": "Subtitle",
+                "bundleImageCdnUrl": "ImageUrl",
+                "bundleLandingUrl": "LandingUrl",
+                "bundleProduct": "",
+                "bundleSequence": 3,
+                "bundleLocation": "HOMEPAGE_SEC_04",
+                "isActive": "Y"
+            },
+            {
+                "id": 92,
+                "websiteCode": "Ezmall",
+                "bundleType": "NEW_ARRIVALS",
+                "bundleTitle": "Title",
+                "bundleSubtitle": "Subtitle",
+                "bundleImageCdnUrl": "ImageUrl",
+                "bundleLandingUrl": "LandingUrl",
+                "bundleProduct": "",
+                "bundleSequence": 3,
+                "bundleLocation": "HOMEPAGE_SEC_04",
+                "isActive": "Y"
+            }
+        ]
+    }
+}
+
+
+isSyncToElkRequired Validation ->
+
+ 1. if isSyncToElkRequired = true -> Valid condition and data save in elk service
+
+ {
+ "ids" : [91,92],
+ "isSyncToElkRequired": true
+}
+
+Response ->
+
+{
+    "status": "OK",
+    "code": 2000,
+    "message": "Request Successful",
+    "data": {
+        "bundleDtos": [
+            {
+                "id": 91,
+                "websiteCode": "Ezmall",
+                "bundleType": "NEW_ARRIVALS",
+                "bundleTitle": "Title",
+                "bundleSubtitle": "Subtitle",
+                "bundleImageCdnUrl": "ImageUrl",
+                "bundleLandingUrl": "LandingUrl",
+                "bundleProduct": "",
+                "bundleSequence": 3,
+                "bundleLocation": "HOMEPAGE_SEC_04",
+                "isActive": "Y"
+            },
+            {
+                "id": 92,
+                "websiteCode": "Ezmall",
+                "bundleType": "NEW_ARRIVALS",
+                "bundleTitle": "Title",
+                "bundleSubtitle": "Subtitle",
+                "bundleImageCdnUrl": "ImageUrl",
+                "bundleLandingUrl": "LandingUrl",
+                "bundleProduct": "",
+                "bundleSequence": 3,
+                "bundleLocation": "HOMEPAGE_SEC_04",
+                "isActive": "Y"
+            }
+        ]
+    }
+}
+
+
+
+ 2. if isSyncToElkRequired = false -> Valid condition and data not save in elk service
+
+ ->Request
+
+ {
+ "ids" : [92],
+ "isSyncToElkRequired":false
+}
+
+->Response
+{
+    "status": "OK",
+    "code": 2000,
+    "message": "Request Successful",
+    "data": {
+        "bundleDtos": [
+            {
+                "id": 92,
+                "websiteCode": "Ezmall",
+                "bundleType": "NEW_ARRIVALS",
+                "bundleTitle": "Title",
+                "bundleSubtitle": "Subtitle",
+                "bundleImageCdnUrl": "ImageUrl",
+                "bundleLandingUrl": "LandingUrl",
+                "bundleProduct": "",
+                "bundleSequence": 3,
+                "bundleLocation": "HOMEPAGE_SEC_04",
+                "isActive": "Y"
+            }
+        ]
+    }
+}
+
+ 3. if isSyncToElkRequired =  -> InValid condition
+
+-> Response
+
+{
+    "status": "INTERNAL_SERVER_ERROR",
+    "code": 5000,
+    "message": "JSON parse error: Unexpected character ('}' (code 125)): expected a value; nested exception is com.fasterxml.jackson.core.JsonParseException: Unexpected character ('}' (code 125)): expected a value\n at [Source: (org.springframework.util.StreamUtils$NonClosingInputStream); line: 4, column: 2]",
+    "data": null
+}
+
+------------------------------------------------------------
+------------------------------------------------------------
+Convert bundle into list
+
+
+Request ->
+
+[{
+
+    "websiteCode": "Dummy",  
+    "bundleType": "DUMMY_BNDL", 
+    "bundleTitle":"Dummy bundle",  
+    "bundleSubtitle":"hey",
+    "bundleImageCdnUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "bundleLandingUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "videoUrl":"",
+    "bundleProduct":"",
+    "bundleSequence":"1",
+    "bundleLocation":"Web",
+    "isActive": "",
+    "startDate":"",
+    "endDate":""
+},
+{
+    "websiteCode": "Dummy",  
+    "bundleType": "DUMMY_BNDL", 
+    "bundleTitle":"Dummy bundle",  
+    "bundleSubtitle":"hey",
+    "bundleImageCdnUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "bundleLandingUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "videoUrl":"",
+    "bundleProduct":"",
+    "bundleSequence":"1",
+    "bundleLocation":"Web",
+    "isActive": "",
+    "startDate":"",
+    "endDate":""
+}]
+
+Response ->
+
+{
+    "status": "OK",
+    "code": 2000,
+    "message": "Request Successful",
+    "data": {
+        "actionBundleIdMap": {
+            "UPDATE": [],
+            "INSERT": [
+                249,
+                250
+            ]
+        }
+    }
+}
+
+------------------------------------
+Request ->
+
+[{
+    "id":249,
+    "websiteCode": "Dummy",  
+    "bundleType": "DUMMY_BNDL", 
+    "bundleTitle":"Dummy bundle",  
+    "bundleSubtitle":"hey",
+    "bundleImageCdnUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "bundleLandingUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "videoUrl":"",
+    "bundleProduct":"",
+    "bundleSequence":"1",
+    "bundleLocation":"Web",
+    "isActive": "",
+    "startDate":"",
+    "endDate":""
+},
+{
+    "websiteCode": "Dummy",  
+    "bundleType": "DUMMY_BNDL", 
+    "bundleTitle":"Dummy bundle",  
+    "bundleSubtitle":"hey",
+    "bundleImageCdnUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "bundleLandingUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "videoUrl":"",
+    "bundleProduct":"",
+    "bundleSequence":"1",
+    "bundleLocation":"Web",
+    "isActive": "",
+    "startDate":"",
+    "endDate":""
+}]
+
+
+
+Response -> 
+
+{
+    "status": "OK",
+    "code": 2000,
+    "message": "Request Successful",
+    "data": {
+        "actionBundleIdMap": {
+            "UPDATE": [
+                249
+            ],
+            "INSERT": [
+                251
+            ]
+        }
+    }
+}
+
+-------------------------
+
+Invalid Request - >
+
+[{
+    "websiteCode": "ABCD",  
+    "bundleType": "DUMMY_BNDL", 
+    "bundleTitle":"Dummy bundle",  
+    "bundleSubtitle":"hey",
+    "bundleImageCdnUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "bundleLandingUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "videoUrl":"",
+    "bundleProduct":"",
+    "bundleSequence":"1",
+    "bundleLocation":"Web",
+    "isActive": "",
+    "startDate":"",
+    "endDate":""
+},
+{
+    "websiteCode": "Dummy",  
+    "bundleType": "DUMMY_BNDL", 
+    "bundleTitle":"Dummy bundle",  
+    "bundleSubtitle":"hey",
+    "bundleImageCdnUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "bundleLandingUrl":"https://cdn3.ezmall.com/0/images/banner/ZSK1674624062574/r/1400x300/hero-banner.jpg",
+    "videoUrl":"",
+    "bundleProduct":"",
+    "bundleSequence":"1",
+    "bundleLocation":"Web",
+    "isActive": "",
+    "startDate":"",
+    "endDate":""
+}]
+
+ Response ->
+
+ {
     "status": "OK",
     "code": 2000,
     "message": "Request Successful",
